@@ -269,6 +269,7 @@ class Caseman():
     def generate_cases(self):
         self.cases = self.casefunc()  # Run the case generator.  Case = [input-vector, target-vector]
 
+
     def organize_cases(self):
         ca = np.array(self.cases)
         np.random.shuffle(ca) # Randomly shuffle all cases
@@ -307,3 +308,5 @@ def countex(epochs=5000,nbits=10,ncases=500,lrate=0.5,showint=500,mbs=20,vfrac=0
     ann.run(epochs,bestk=bestk)
     return ann
 
+
+network = Gann
