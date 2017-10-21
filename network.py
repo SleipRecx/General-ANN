@@ -111,8 +111,13 @@ class GANN:
 mnist = input_data.read_data_sets("data/mnist/", one_hot=True)
 examples = np.concatenate((mnist.train.images, mnist.validation.images, mnist.test.images), axis=0)
 targets = np.concatenate((mnist.train.labels, mnist.validation.labels, mnist.test.labels), axis=0)
-
-# case_manager = CaseManager((examples, targets), 0.1, 0.1)
+es = []
+tes = []
+for e in examples:
+    es.append(e)
+for t in targets:
+    tes.append(t)
+case_manager = CaseManager(es, tes, 0.1, 0.1)
 
 # Create network
 network: GANN = GANN(784, [10], [tf.nn.softmax], cross_entropy, tf.train.AdamOptimizer, 0.001, 100)
