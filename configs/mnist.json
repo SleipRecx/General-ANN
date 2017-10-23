@@ -1,0 +1,30 @@
+{
+  "dataset": {
+    "name": "mnist",
+    "case_fraction": 1.0,
+    "validation_fraction": 0.1,
+    "test_fraction": 0.1
+  },
+  "arcitechture": {
+    "input_size": 784,
+    "layer_specification": [10],
+    "activation_functions": ["softmax"],
+    "weight_range": {
+      "from": 0,
+      "to": 1
+    }
+  },
+  "training": {
+    "epochs": 50,
+    "learning_rate": 0.01,
+    "minibatch_size": 100,
+    "loss_function": "cross_entropy",
+    "optimizer": "adam"
+  },
+  "visualization": {
+    "weights": [],
+    "bias": [],
+    "map_layers": [],
+    "map_dendrogram": []
+  }
+}

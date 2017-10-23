@@ -1,12 +1,10 @@
 import tensorflow as tf
 import numpy as np
 import math
-import random
 from typing import List, Callable, Tuple
 from tensorflow.examples.tutorials.mnist import input_data
 from tflowtools import plot_training_error
 Tensor = tf.Tensor
-random.seed(123)
 
 
 def squared_error(target, output):
@@ -48,7 +46,7 @@ class Layer:
         self.output = activation(tf.matmul(input_tensor, self.weights) + self.biases)
 
 
-class GANN:
+class Network:
     def __init__(self, input_size: int, dimensions: List, activations: List, loss_function,
                  optimizer: Callable = tf.train.AdamOptimizer, learning_rate: float = 0.01, mini_batch_size: int = 50):
         self.learning_rate: float = learning_rate
@@ -77,12 +75,6 @@ class GANN:
         self.output = prev_layer_output
         self.target = tf.placeholder(tf.float32, shape=(None, dimensions[-1]), name='Target')
 
-    def test_model(self, inputs, targets):
-        correct_prediction = tf.equal(tf.argmax(self.output, 1), tf.argmax(self.target, 1))
-        accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-        result = self.session.run(accuracy, feed_dict={self.input: inputs, self.target: targets})
-        return result
-
     def train_model(self, inputs: List, targets: List, epochs: int = 100):
         assert len(inputs) == len(targets), 'Inputs and targets needs to be same size'
         correct_prediction = tf.equal(tf.argmax(self.output, 1), tf.argmax(self.target, 1))
@@ -108,6 +100,7 @@ class GANN:
         plot_training_error(training_errors, validation_errors)
 
 
+"""
 mnist = input_data.read_data_sets("data/mnist/", one_hot=True)
 examples = np.concatenate((mnist.train.images, mnist.validation.images, mnist.test.images), axis=0)
 targets = np.concatenate((mnist.train.labels, mnist.validation.labels, mnist.test.labels), axis=0)
@@ -120,9 +113,9 @@ for t in targets:
 case_manager = CaseManager(es, tes, 0.1, 0.1)
 
 # Create network
-network: GANN = GANN(784, [10], [tf.nn.softmax], cross_entropy, tf.train.AdamOptimizer, 0.001, 100)
+network: Network = Network(784, [10], [tf.nn.softmax], cross_entropy, tf.train.AdamOptimizer, 0.001, 100)
 
 # Train network
 network.train_model(mnist.train.images, mnist.train.labels)
 
-
+"""
