@@ -8,5 +8,5 @@ random.seed(123)
 np.random.seed(123)
 tf.set_random_seed(123)
 
-network, cases = neural_network_factory("configs/parity.json")
+network, cases = neural_network_factory("configs/mnist.json")
 network.train_model(cases)

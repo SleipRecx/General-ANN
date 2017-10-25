@@ -45,6 +45,14 @@ def neural_network_factory(filename: str) -> Tuple:
     learning_rate = config["training"]["learning_rate"]
     test_frequency = config["training"]["test_frequency"]
 
+    """ Visualization """
+    visualization_on = config["visualization"]["on"]
+    display_weights = config["visualization"]["display_weights"]
+    display_biases = config["visualization"]["display_biases"]
+    display_layers = config["visualization"]["display_layers"]
+    map_size = config["visualization"]["map_batch_size"]
+    dendrogram_layers = config["visualization"]["dendrogram_layers"]
+
     network = Network(
         input_size=input_size,
         dimensions=layer_specification,
@@ -56,7 +64,13 @@ def neural_network_factory(filename: str) -> Tuple:
         epochs=epochs,
         weight_range=weight_range,
         bias_range=bias_range,
-        test_frequency=test_frequency
+        test_frequency=test_frequency,
+        display_weights=display_weights,
+        display_layers=display_layers,
+        display_biases=display_biases,
+        visualization_on=visualization_on,
+        dendrogram_layers=dendrogram_layers,
+        map_size=map_size
     )
     cases = CaseManager(
         cases=cases,

@@ -5,7 +5,6 @@ import numpy as np
 import copy
 import os  # For starting up tensorboard from inside python
 import matplotlib.pyplot as PLT
-import matplotlib.pyplot as plt
 import scipy.cluster.hierarchy as SCH  # Needed for dendrograms
 import numpy.random as NPR
 
@@ -357,20 +356,23 @@ def hinton_plot(matrix, maxval=None, maxsize=1, fig=None,trans=True,scale=True, 
         axes.add_patch(blob)
     axes.autoscale_view()
     PLT.draw()
-    PLT.pause(.001)
+    PLT.show(block=False)
 
 def plot_training_error(error_history, validation_history):
+    fig1 = PLT.figure()
+    fig1.add_subplot()
     x, y = zip(*error_history)
-    plt.plot(x, y, label="Training")
-    plt.ylabel("Error")
-    plt.xlabel("Epoch")
+    PLT.plot(x, y, label="Training")
+    PLT.ylabel("Error")
+    PLT.xlabel("Epoch")
 
     if len(validation_history):
         x, y = zip(*validation_history)
-        plt.plot(x, y, label="Validation")
-    plt.legend(loc='upper right')
-    plt.title("Training and validation error")
-    plt.show()
+        PLT.plot(x, y, label="Validation")
+    PLT.legend(loc='upper right')
+    PLT.title("Training and validation error")
+    PLT.draw()
+    PLT.show(block=False)
 
 # This graphically displays a matrix with color codes for positive, negative, small positive and small negative,
 # with the latter 2 defined by the 'cutoff' argument.  The transpose (trans) arg defaults to
@@ -432,11 +434,13 @@ def gen_dim_reduced_data(feature_array,target_size,eigen_values,eigen_vectors):
 # orientation = top, bottom, left, right (refers to location of the root of the tree)
 # mode = single, average, complete, centroid, ward, median
 # metric = euclidean, cityblock (manhattan), hamming, cosine, correlation ... (see matplotlib distance.pdist for all 23)
-def dendrogram(features,labels,metric='euclidean',mode='average',ax=None,title='Dendrogram',orient='top',lrot=90.0):
+def dendrogram(features,labels,metric='euclidean',mode='average',ax=None,title='Dendrogram',orient='top',lrot=0.0):
+    fig1 = PLT.figure()
+    fig1.add_subplot()
     ax = ax if ax else PLT.gca()
     cluster_history = SCH.linkage(features,method=mode,metric=metric)
     SCH.dendrogram(cluster_history,labels=labels,orientation=orient,leaf_rotation=lrot)
     PLT.tight_layout()
     ax.set_title(title)
     ax.set_ylabel(metric + ' distance')
-    PLT.show()
+    PLT.show(block=False)

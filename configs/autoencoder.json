@@ -27,9 +27,11 @@
     "test_frequency": 100
   },
   "visualization": {
-    "weights": [],
-    "bias": [],
-    "map_layers": [],
-    "map_dendrogram": []
+    "on": false,
+    "map_batch_size": 10,
+    "display_weights": [],
+    "display_biases": [],
+    "display_layers": [],
+    "dendrogram_layers": []
   }
 }
