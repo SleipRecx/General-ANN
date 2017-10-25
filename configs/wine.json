@@ -7,24 +7,24 @@
   },
   "arcitechture": {
     "input_size": 11,
-    "layer_specification": [40, 40, 40, 6],
-    "activation_functions": ["sigmoid", "sigmoid", "sigmoid", "relu"],
+    "layer_specification": [200, 200, 6],
+    "activation_functions": ["relu", "relu", "sigmoid"],
     "weight_range": {
-      "from": 0.05,
-      "to": 0.169
+      "from": 0.0,
+      "to": 0.1
     },
     "bias_range": {
-      "from": 0.05,
-      "to": 0.169
+      "from": 0.0,
+      "to": 0.1
     }
   },
   "training": {
-    "epochs": 1200,
-    "learning_rate": 0.009,
-    "minibatch_size": 100,
-    "loss_function": "CE",
+    "epochs": 1000,
+    "learning_rate": 0.005,
+    "minibatch_size": 20,
+    "loss_function": "MSE",
     "optimizer": "ADAM",
-    "test_frequency": 10
+    "test_frequency": 50
   },
   "visualization": {
     "on": false,

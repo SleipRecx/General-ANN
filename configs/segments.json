@@ -7,14 +7,14 @@
   },
   "arcitechture": {
     "input_size": 25,
-    "layer_specification": [17,17,9],
-    "activation_functions": ["relu", "tanh", "softmax"],
+    "layer_specification": [17,9],
+    "activation_functions": ["relu", "softmax"],
     "weight_range": {
-      "from": -0.1,
+      "from": 0.0,
       "to": 0.1
     },
     "bias_range": {
-      "from": -0.1,
+      "from": 0.0,
       "to": 0.1
     }
   },
@@ -24,7 +24,7 @@
     "minibatch_size": 10,
     "loss_function": "MSE",
     "optimizer": "ADAM",
-    "test_frequency": 100
+    "test_frequency": 10
   },
   "visualization": {
     "on": false,

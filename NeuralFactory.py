@@ -7,18 +7,22 @@ from NeuralNetwork import Network, CaseManager
 from TFlowtools import gen_all_parity_cases, gen_all_one_hot_cases, gen_vector_count_cases, gen_segmented_vector_cases
 
 
+# Mean sqaured error loss function
 def mean_squared_error(target, output):
     return tf.reduce_mean(tf.square(target - output), name='MSE')
 
 
+# Categorical cross entropy function
 def cross_entropy(target, output):
     return tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=target, logits=output), name='CE')
 
 
+# Leaky relu activation function, currently not supported by tensorflow
 def lrelu(x):
     return tf.maximum(x, 0.01 * x)
 
 
+# Factory that takes json file as input and creates neural network from json config
 def neural_network_factory(filename: str) -> Tuple:
     file = open(filename)
     config = json.load(file)
@@ -53,6 +57,7 @@ def neural_network_factory(filename: str) -> Tuple:
     map_size = config["visualization"]["map_batch_size"]
     dendrogram_layers = config["visualization"]["dendrogram_layers"]
 
+    # Create network
     network = Network(
         input_size=input_size,
         dimensions=layer_specification,
@@ -72,6 +77,8 @@ def neural_network_factory(filename: str) -> Tuple:
         dendrogram_layers=dendrogram_layers,
         map_size=map_size
     )
+
+    # Create casemanager
     cases = CaseManager(
         cases=cases,
         validation_fraction=validation_fraction,
@@ -81,6 +88,7 @@ def neural_network_factory(filename: str) -> Tuple:
     return network, cases
 
 
+# Factory that returns activation function from string
 def activation_factory(name: str) -> Callable:
     if name.lower() == "softmax":
         return tf.nn.softmax
@@ -95,6 +103,7 @@ def activation_factory(name: str) -> Callable:
     assert False
 
 
+# Factory that returns a loss function based on a string
 def loss_factory(name: str) -> Callable:
     if name.upper() == "CE":
         return cross_entropy
@@ -103,6 +112,7 @@ def loss_factory(name: str) -> Callable:
     assert False
 
 
+# Factory that returns optimizer function from string
 def optimizer_factory(name: str) -> Callable:
     if name.upper() == "ADAM":
         return tf.train.AdamOptimizer
@@ -115,6 +125,7 @@ def optimizer_factory(name: str) -> Callable:
     assert False
 
 
+# Factory that return dataset from string
 def dataset_factory(name: str) -> List:
     if name.lower() == "wine":
         return read_dataset("data/wine.txt", ";")
@@ -138,6 +149,7 @@ def dataset_factory(name: str) -> List:
     assert False
 
 
+# This read mnist and cleans it to the right format
 def read_mnist(examples, targets) -> List:
     result = []
     for i in range(len(examples)):
@@ -145,6 +157,7 @@ def read_mnist(examples, targets) -> List:
     return result
 
 
+# Reads dataset from file, normalizes it and normalizes it and creates one hot target vector
 def read_dataset(path: str, seperator: str) -> List:
     dataset = list(map(lambda x: x.split(seperator), open(path).read().split("\n")))
     for i in range(0, len(dataset)):

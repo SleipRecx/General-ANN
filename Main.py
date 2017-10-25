@@ -3,10 +3,13 @@ import random
 import tensorflow as tf
 import numpy as np
 
-# Make program determenistic
+# Make program determenistic for testing purposes, ofc remove in production.
 random.seed(123)
 np.random.seed(123)
 tf.set_random_seed(123)
 
-network, cases = neural_network_factory("configs/mnist.json")
+# Create network and dataset from json config.
+network, cases = neural_network_factory("configs/yeast.json")
+
+# Train model with casemanager.
 network.train_model(cases)

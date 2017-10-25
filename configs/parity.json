@@ -7,19 +7,19 @@
   },
   "arcitechture": {
     "input_size": 10,
-    "layer_specification": [20, 2],
+    "layer_specification": [100, 2],
     "activation_functions": ["relu", "softmax"],
     "weight_range": {
-      "from": -0.1,
+      "from": 0.0,
       "to": 0.1
     },
     "bias_range": {
-      "from": -0.1,
+      "from": 0.0,
       "to": 0.1
     }
   },
   "training": {
-    "epochs": 1,
+    "epochs": 700,
     "learning_rate": 0.001,
     "minibatch_size": 20,
     "loss_function": "MSE",

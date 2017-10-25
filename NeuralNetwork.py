@@ -7,6 +7,7 @@ from TFlowtools import plot_training_error, hinton_plot, dendrogram, bits_to_str
 Tensor = tf.Tensor
 
 
+# Casemanager that organizes our dataset and splits it into test, val and traing
 class CaseManager:
     def __init__(self,
                  cases: List,
@@ -22,7 +23,8 @@ class CaseManager:
         self.test: List[Tuple] = None
         case_count = int(len(cases) * case_fraction)
         self.organize_cases(cases[0:case_count])
-
+        
+    # Shuffle cases and seperate them into train, val, test
     def organize_cases(self, cases: List):
         ca = np.array(cases)
         np.random.shuffle(ca)
@@ -33,6 +35,7 @@ class CaseManager:
         self.test = ca[separator2:]
 
 
+# A Layer in our neural network. takes input multiplies with weights adds bias and return activation function of result
 class Layer:
     def __init__(self, input_tensor: Tensor, input_size, output_size, activation, weight_range, bias_range):
         self.output_size = output_size
@@ -41,6 +44,7 @@ class Layer:
         self.output = activation(tf.matmul(input_tensor, self.weights) + self.biases)
 
 
+# Our general neural network thus a loong list of params
 class Network:
     def __init__(self, input_size: int, dimensions: List, activations: List, bias_range: Tuple, weight_range: Tuple,
                  loss_function: Callable, dendrogram_layers: List, display_weights: List, display_biases: List,
@@ -73,6 +77,7 @@ class Network:
         self.session = tf.Session()
         self.session.run(tf.global_variables_initializer())
 
+    # Builds up computational graph
     def build_model(self, dimensions: List, activations: List):
         assert len(dimensions) == len(activations), 'dimensions and activations need to be same size'
         prev_layer_output = self.input
@@ -93,6 +98,7 @@ class Network:
         self.correct_prediction = tf.equal(tf.argmax(self.output, 1), tf.argmax(self.target, 1))
         self.accuracy = tf.reduce_mean(tf.cast(self.correct_prediction, tf.float64))
 
+    # Tests our model with backpropagation turned off
     def test_model(self, message: str, cases):
         inputs = [c[0] for c in cases]
         targets = [c[1] for c in cases]
@@ -101,6 +107,7 @@ class Network:
         print(message, accuracy)
         return error, accuracy
 
+    # Uses matplotlib to visualize desired layers, biases, and weights of our network
     def visualize_model(self, cases: CaseManager):
         inputs = [c[0] for c in cases.test[0:self.map_size]]
         targets = [c[1] for c in cases.test[0:self.map_size]]
@@ -149,6 +156,7 @@ class Network:
         for layer in self.dendrogram_layers:
             dendrogram(g_layers[layer], list(map(lambda x: bits_to_str(x), targets)))
 
+    # Trains model in minibatches and log error
     def train_model(self, cases: CaseManager):
         training_errors = []
         validation_errors = []
@@ -177,6 +185,8 @@ class Network:
         print("-" * 60)
         self.test_model("Training", cases.train)
         self.test_model("Test", cases.test)
+
+        # Plot training results
         plot_training_error(training_errors, validation_errors)
         if self.visualization_on:
             self.visualize_model(cases)
