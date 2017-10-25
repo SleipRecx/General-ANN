@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import math
 import matplotlib.pyplot as PLT
-import tflowtools as TFT
+import TFlowtools as TFT
 
 # ******* A General Artificial Neural Network ********
 # This is the original GANN, which has been improved in the file gann.py

@@ -1,14 +1,14 @@
 {
   "dataset": {
-    "name": "mnist",
-    "case_fraction": 0.6,
+    "name": "glass",
+    "case_fraction": 1.0,
     "validation_fraction": 0.1,
     "test_fraction": 0.1
   },
   "arcitechture": {
-    "input_size": 784,
-    "layer_specification": [50, 10],
-    "activation_functions": ["relu", "softmax"],
+    "input_size": 9,
+    "layer_specification": [50,15, 6],
+    "activation_functions": ["relu","tanh","softmax"],
     "weight_range": {
       "from": -0.1,
       "to": 0.1
@@ -19,12 +19,12 @@
     }
   },
   "training": {
-    "epochs": 50,
+    "epochs": 2000,
     "learning_rate": 0.001,
-    "minibatch_size": 100,
+    "minibatch_size": 20,
     "loss_function": "CE",
     "optimizer": "ADAM",
-    "test_frequency": 5
+    "test_frequency": 100
   },
   "visualization": {
     "weights": [],

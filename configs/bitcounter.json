@@ -1,13 +1,13 @@
 {
   "dataset": {
-    "name": "mnist",
-    "case_fraction": 0.6,
+    "name": "bit counter",
+    "case_fraction": 1.0,
     "validation_fraction": 0.1,
     "test_fraction": 0.1
   },
   "arcitechture": {
-    "input_size": 784,
-    "layer_specification": [50, 10],
+    "input_size": 15,
+    "layer_specification": [4, 16],
     "activation_functions": ["relu", "softmax"],
     "weight_range": {
       "from": -0.1,
@@ -19,12 +19,12 @@
     }
   },
   "training": {
-    "epochs": 50,
-    "learning_rate": 0.001,
-    "minibatch_size": 100,
-    "loss_function": "CE",
+    "epochs": 1000,
+    "learning_rate": 0.01,
+    "minibatch_size": 15,
+    "loss_function": "MSE",
     "optimizer": "ADAM",
-    "test_frequency": 5
+    "test_frequency": 100
   },
   "visualization": {
     "weights": [],
