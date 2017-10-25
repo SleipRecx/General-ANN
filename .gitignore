@@ -1,7 +1,8 @@
 
 # Created by https://www.gitignore.io/api/macos,pycharm
 
-data/
+data/mnist
+__pycache__/
 
 ### macOS ###
 *.DS_Store
