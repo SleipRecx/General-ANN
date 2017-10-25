@@ -140,7 +140,7 @@ def dataset_factory(name: str) -> List:
     elif name.lower() == "bit counter":
         return gen_vector_count_cases(500, 15)
     elif name.lower() == "segment counter":
-        return gen_segmented_vector_cases(25, 25, 0, 8)
+        return gen_segmented_vector_cases(25, 2500, 0, 8)
     elif name.lower() == 'mnist':
         mnist = input_data.read_data_sets("data/mnist", one_hot=True)
         return read_mnist(mnist.train.images, mnist.train.labels)

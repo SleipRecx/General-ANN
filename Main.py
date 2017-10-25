@@ -9,7 +9,7 @@ np.random.seed(123)
 tf.set_random_seed(123)
 
 # Create network and dataset from json config.
-network, cases = neural_network_factory("configs/yeast.json")
+network, cases = neural_network_factory("configs/segments.json")
 
 # Train model with casemanager.
 network.train_model(cases)

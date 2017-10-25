@@ -7,22 +7,22 @@
   },
   "arcitechture": {
     "input_size": 25,
-    "layer_specification": [17,9],
-    "activation_functions": ["relu", "softmax"],
+    "layer_specification": [25, 9],
+    "activation_functions": ["relu", "relu"],
     "weight_range": {
-      "from": 0.0,
-      "to": 0.1
+      "from": 0,
+      "to": 0.169
     },
     "bias_range": {
-      "from": 0.0,
-      "to": 0.1
+      "from": 0,
+      "to": 0.169
     }
   },
   "training": {
-    "epochs": 1000,
-    "learning_rate": 0.001,
-    "minibatch_size": 10,
-    "loss_function": "MSE",
+    "epochs": 500,
+    "learning_rate": 0.015,
+    "minibatch_size": 50,
+    "loss_function": "CE",
     "optimizer": "ADAM",
     "test_frequency": 10
   },
