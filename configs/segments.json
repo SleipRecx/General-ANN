@@ -7,8 +7,8 @@
   },
   "arcitechture": {
     "input_size": 25,
-    "layer_specification": [17,17,17, 9],
-    "activation_functions": ["relu", "lrelu", "lrelu", "lrelu"],
+    "layer_specification": [17,100, 9],
+    "activation_functions": ["relu","relu", "lrelu"],
     "weight_range": {
       "from": -0.1,
       "to": 0.1
@@ -19,7 +19,7 @@
     }
   },
   "training": {
-    "epochs": 1600,
+    "epochs": 500,
     "learning_rate": 0.001,
     "minibatch_size": 25,
     "loss_function": "MSE",
