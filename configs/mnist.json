@@ -1,7 +1,7 @@
 {
   "dataset": {
     "name": "mnist",
-    "case_fraction": 0.4,
+    "case_fraction": 0.1,
     "validation_fraction": 0.1,
     "test_fraction": 0.1
   },
@@ -19,12 +19,12 @@
     }
   },
   "training": {
-    "epochs": 100,
+    "epochs": 200,
     "learning_rate": 0.0001,
     "minibatch_size": 100,
     "loss_function": "CE",
     "optimizer": "ADAM",
-    "test_frequency": 1
+    "test_frequency": 10
   },
   "visualization": {
     "on": false,
