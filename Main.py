@@ -17,7 +17,7 @@ tf.set_random_seed(123)
 config = sys.argv[1]
 
 # Create network and dataset from json config.
-network, cases = neural_network_factory("configs/" + config + ".json")
+network, cases = neural_network_factory(config)
 
 # Train model with casemanager.
 network.train_model(cases)
